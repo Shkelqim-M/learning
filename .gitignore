@@ -1,0 +1,6 @@
+
+#folders
+.metals
+.vscode
+/target
+/null
