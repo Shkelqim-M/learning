@@ -1,6 +1,6 @@
 
 #folders
-.metals
-.vscode
-/target
-/null
+.metals/
+.vscode/
+.idea/
+target/
