@@ -1,4 +1,4 @@
-
+/*
 
 pub fn longest_palindrome(s: String) -> String {
     let chars: Vec<char> = s.chars().collect();
@@ -17,7 +17,7 @@ pub fn longest_palindrome(s: String) -> String {
     longest
 }
 
-/*pub fn running_sum(nums: Vec<i32>) -> Vec<i32> {
+pub fn running_sum(nums: Vec<i32>) -> Vec<i32> {
     let mut sum = 0;
     nums.into_iter()
         .map(|x| {

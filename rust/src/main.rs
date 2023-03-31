@@ -4,11 +4,14 @@ mod solution;
 
 fn main() {
     println!("Hello there!\n");
-    println!("Longest Palindrome: {}", solution::longest_palindrome(String::from("babad")));
+    let problem1: i32 = (1..1000).filter(|&n| n % 3 == 0 || n % 5 == 0).sum();
+    println!("{}", problem1);
 
 
-    // println!("{}", solution::length_of_last_word("Hello world".to_string()));
-    // println!("{}", solution::search_insert([1, 3, 5, 6].to_vec(), 5));
-    // println!("{}", solution::pivot_index([1, 7, 3, 6, 5, 6].to_vec()));
-    // println!("{:?}", solution::running_sum([1, 2, 3, 4].to_vec()));
+    let lazy_list =
+        std::iter::successors(Some((0, 1)), |&(a, b)| Some((b, a + b)))
+            .map(|(a, _)| a);
+    let problem_2 = lazy_list.take_while(|&n| n <= 4000000).filter(|&n| n % 2 == 0).sum::<i32>();
+    println!("{}", problem_2);
 }
+

@@ -1,7 +1,65 @@
 import scala.annotation.tailrec
 
-object Solution {
-  def myAtoi(s: String): Int = {
+//noinspection ScalaUnusedSymbol
+object Solution extends App {
+  println("* ** * " * 30 + "\n")
+  private val start = System.nanoTime()
+  private def findMedianSortedArrays(nums1: Array[Int], nums2: Array[Int]): Double = {
+    val allNum = (nums1 ++ nums2).sorted
+    val length = allNum.length
+    if (allNum.length % 2 == 0) {
+      val (up, down) = allNum.splitAt(length / 2)
+      (up.last + down.head) / 2.0
+    } else allNum(length / 2)
+  }
+
+  println(Solution.findMedianSortedArrays(Array(1, 3), Array(2)))
+  println(Solution.findMedianSortedArrays(Array(1, 2), Array(3, 4)))
+//  println(Solution.numDupDigitsAtMostN(1000))
+
+  private def numDupDigitsAtMostN(n: Int): Int = {
+    def hasRepeatedDigits(num: Int): Boolean = {
+      val digits = num.toString.map(_.asDigit)
+      digits.distinct.size < digits.size
+    } // Is not acceptable with Memory usage!!!
+
+    (1 to n).count(hasRepeatedDigits)
+  }
+
+  private def removeElement(nums: Array[Int], `val`: Int): Int = {
+    println(nums.mkString("Array(", ", ", ")"))
+    val res1 = nums.flatMap {
+      case x if x == `val` => None
+      case x               => Some(x)
+    }
+    println(res1.mkString("Array(", ", ", ")"))
+    res1.length
+    val res = nums.filter(_ != `val`)
+    res.indices.foldLeft(nums) { (nums, i) =>
+      nums(i) = res(i)
+      nums
+    }
+    res.length
+  }
+
+  private def permuteUnique(nums: Array[Int]): List[List[Int]] = {
+    def backtrack(currList: List[Int], remainingNums: List[Int], result: List[List[Int]]): List[List[Int]] =
+      remainingNums match {
+        case Nil => currList :: result
+        case _ =>
+          remainingNums.zipWithIndex.flatMap { case (num, idx) =>
+            if (idx > 0 && num == remainingNums(idx - 1)) Nil // skip duplicates
+            else {
+              val newRemainingNums = remainingNums.take(idx) ++ remainingNums.drop(idx + 1)
+              backtrack(num :: currList, newRemainingNums, result)
+            }
+          }
+      }
+
+    backtrack(Nil, nums.toList.sorted, Nil)
+  }
+
+  private def myAtoi(s: String): Int = {
     @tailrec
     def loop(in: List[Char], acc: Long, sign: Int): Int =
       in match {
@@ -34,23 +92,25 @@ object Solution {
   private def lengthOfLastWord(s: String): Int = s.split(" +").last.length
 
   private def longestPalindrome(s: String): String = {
-    val chars   = s.toCharArray()
+    val chars   = s.toCharArray
     val n       = chars.length
     val dp      = Array.ofDim[Boolean](n, n) // dynamic programming table
     var longest = ""
 
-    for (i <- n - 1 to 0 by -1) {
+    for (i <- n - 1 to 0 by -1)
       for (j <- i until n) {
-        dp(i)(j) = (chars(i) == chars(j)) && (j - i < 3 || dp(i + 1)(j - 1))
-        if (dp(i)(j) && (j - i + 1) > longest.length) longest = s.substring(i, j + 1)
+        dp(i)(j) = chars(i) == chars(j) && (j - i < 3 || dp(i + 1)(j - 1))
+        if (dp(i)(j) && j - i + 1 > longest.length) longest = s.substring(i, j + 1)
       }
-    }
 
     longest
   }
 
-  println(lengthOfLastWord("Hello world"))
+//  println(lengthOfLastWord("Hello world"))
 //  println(searchInsert(Array(1, 3, 5, 6), 5))
 //  println(pivotIndex(Array(1, 7, 3, 6, 5, 6)))
 //  println(runningSum(Array(1, 2, 3, 4)).mkString("Array(", ", ", ")"))
+  println("\n" + "* ** * " * 30)
+  private val end = System.nanoTime()
+  println((end - start) / 1000000.0 + " ms")
 }
