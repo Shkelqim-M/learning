@@ -34,6 +34,13 @@ fn main() {
             .max()
             .unwrap_or(0);
 
-    println!("{}", problem_4)
+    println!("{}", problem_4);
+
+    // let problem_5 = (20..).find(|&n| (2..=20).all(|m| n % m == 0)).unwrap();
+    // println!("{}", problem_5); // It's not performant!!!
+
+    let square = |n: i32| n * n;
+    let problem_6 = square((1..=100).sum::<i32>()) - (1..=100).map(square).sum::<i32>();
+    println!("{}", problem_6);
 }
 

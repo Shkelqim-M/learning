@@ -1,4 +1,7 @@
 /*
+pub fn can_construct(ransom_note: String, magazine: String) -> bool {
+    ransom_note.chars().filter(|&c| magazine.contains(c)).count() == ransom_note.chars().count()
+}
 
 pub fn longest_palindrome(s: String) -> String {
     let chars: Vec<char> = s.chars().collect();

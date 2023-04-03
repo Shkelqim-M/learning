@@ -16,9 +16,14 @@ object Euler extends App {
 
   private val problem4 =
     (100 to 999).view.flatMap(i => (i to 999).map(_ * i)).filter(n => n.toString == n.toString.reverse).max
-
   println("problem four: \t" + problem4)
 
+//  private val problem5 = Range(20, Int.MaxValue).find(n => Range(2, 21).forall(n % _ == 0)).get
+//  println("problem five: \t" + problem5) // It's not performant!!!
+
+  private def square(n: Int) = n * n
+  private val problem6       = square((1 to 100).sum) - (1 to 100).map(square).sum
+  println("problem six: \t" + problem6)
   // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
   println("\n" + "* ** * " * 30)
   private val end = System.nanoTime()

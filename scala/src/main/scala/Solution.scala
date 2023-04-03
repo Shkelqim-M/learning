@@ -4,6 +4,10 @@ import scala.annotation.tailrec
 object Solution extends App {
   println("* ** * " * 30 + "\n")
   private val start = System.nanoTime()
+
+  def canConstruct(ransomNote: String, magazine: String): Boolean =
+    ransomNote.toSeq.intersect(magazine).size == ransomNote.length
+
   private def findMedianSortedArrays(nums1: Array[Int], nums2: Array[Int]): Double = {
     val allNum = (nums1 ++ nums2).sorted
     val length = allNum.length
@@ -12,10 +16,6 @@ object Solution extends App {
       (up.last + down.head) / 2.0
     } else allNum(length / 2)
   }
-
-  println(Solution.findMedianSortedArrays(Array(1, 3), Array(2)))
-  println(Solution.findMedianSortedArrays(Array(1, 2), Array(3, 4)))
-//  println(Solution.numDupDigitsAtMostN(1000))
 
   private def numDupDigitsAtMostN(n: Int): Int = {
     def hasRepeatedDigits(num: Int): Boolean = {
